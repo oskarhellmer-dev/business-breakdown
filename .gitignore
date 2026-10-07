@@ -1,0 +1,3 @@
+# keep internals out of the published site
+email/
+*.py

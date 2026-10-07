@@ -253,14 +253,9 @@
     <p class="hero-sub" data-fade>One company, one business model, every week. I break down <b>where the profit actually comes from</b> — the detail the press skips.</p>
 
     <div class="hero-cta">
-      <form class="cta-form magnetic" id="leadform" action="https://formsubmit.co/REPLACE@example.com" method="POST" data-fade>
-        <!-- TODO: byt REPLACE@example.com mot kanalens egen e-post -->
-        <input type="hidden" name="_subject" value="New The Margin subscriber">
-        <input type="hidden" name="_next" value="https://oskarhellmer-dev.github.io/business-breakdown/tack.html">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="email" name="email" placeholder="your@email.com" required>
-        <button class="btn" type="submit" id="submitBtn">Get the free guide</button>
+      <form class="cta-form magnetic seqform" id="leadform" data-fade>
+        <input type="email" name="email" placeholder="your@email.com" required autocomplete="email">
+        <button class="btn" type="submit">Get the free guide</button>
       </form>
     </div>
     <div class="micro" data-fade>Free: <b>The 7 Business Models That Print Money</b> — and the 3 that quietly kill good companies.</div>
@@ -379,12 +374,8 @@
   <section class="offer">
     <div class="sec-label" data-fade style="text-align:center">The free guide</div>
     <h2 data-mask style="margin-top:20px;text-align:center">Stop watching. Start reading <em>the game.</em></h2>
-    <form class="cta-form magnetic" id="leadform2" action="https://formsubmit.co/REPLACE@example.com" method="POST" data-fade>
-      <input type="hidden" name="_subject" value="New The Margin subscriber">
-      <input type="hidden" name="_next" value="https://oskarhellmer-dev.github.io/business-breakdown/tack.html">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="email" name="email" placeholder="your@email.com" required>
+    <form class="cta-form magnetic seqform" id="leadform2" data-fade>
+      <input type="email" name="email" placeholder="your@email.com" required autocomplete="email">
       <button class="btn" type="submit">Send me the guide</button>
     </form>
     <div class="ok" id="okmsg">✓ Locked in — check your inbox.</div>
@@ -617,14 +608,34 @@ window.MARGIN = {
         if(life<72)requestAnimationFrame(a); else d.remove(); })();
     }
   }
-  ['leadform','leadform2'].forEach(function(id,i){
-    var f=document.getElementById(id); if(!f) return;
-    f.addEventListener('submit',function(e){
-      if(!f.checkValidity()) return;
-      var r=f.getBoundingClientRect(); confetti(r.left+r.width/2, r.top+r.height/2, 110);
-      var b=f.querySelector('.btn'); if(b) b.textContent="You're in ✓";
-      if(i===1){ var ok=document.getElementById('okmsg'); if(ok) ok.style.display='block'; }
-      if(lenis) lenis.stop();
+  /* ---------- SIGNUP -> Sequenzy (public form endpoint, no key needed) ---------- */
+  var SEQ = "https://api.sequenzy.com/api/v1/forms/kkex6g8p9v1meg7lz39elu5h";
+  var TACK = "tack.html";
+  document.querySelectorAll('.seqform').forEach(function(f){
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      var inp = f.querySelector('input[type=email]');
+      if(!inp.checkValidity()){ inp.reportValidity(); return; }
+      var b = f.querySelector('.btn'), old = b ? b.textContent : '';
+      if(b){ b.textContent = 'Sending…'; b.disabled = true; }
+      fetch(SEQ, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify({ email: inp.value })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(!d || d.success === false) throw new Error('rejected');
+        var r = f.getBoundingClientRect(); confetti(r.left + r.width/2, r.top + r.height/2, 110);
+        var ok = document.getElementById('okmsg'); if(ok) ok.style.display = 'block';
+        if(b) b.textContent = "You're in ✓";
+        if(lenis) lenis.stop();
+        setTimeout(function(){ location.href = TACK; }, 900);
+      })
+      .catch(function(){
+        if(b){ b.textContent = old; b.disabled = false; }
+        alert('Something went wrong — please try again.');
+      });
     });
   });
 
