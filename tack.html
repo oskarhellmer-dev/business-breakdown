@@ -4,67 +4,56 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>You're in — The Margin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#070a13;--card:#111830;--line:#26324f;--ink:#f6f8ff;--grey:#9aa6c0;--gold:#ffc53d;--gold2:#ff9f1c;--green:#2ee6a8;--violet:#7b6cff;--ease:cubic-bezier(.22,1,.36,1)}
+  :root{--bg:#0B0C0E;--surface:#15171C;--line:rgba(255,255,255,.10);--ink:#F5F6F7;--muted:#8A8F98;--gold:#FFC53D;--gold2:#F2A81B;--green:#16C784;--ease:cubic-bezier(.16,1,.3,1)}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    line-height:1.6;min-height:100vh;display:flex;align-items:center;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
-  .aurora{position:fixed;inset:-20%;z-index:0;pointer-events:none;filter:blur(90px);opacity:.55}
-  .aurora span{position:absolute;border-radius:50%;mix-blend-mode:screen}
-  .aurora .a{width:50vw;height:50vw;left:-8%;top:-8%;background:radial-gradient(circle,#2b3bff,transparent 65%);animation:d 26s var(--ease) infinite}
-  .aurora .b{width:44vw;height:44vw;right:-6%;bottom:-10%;background:radial-gradient(circle,#ffc53d,transparent 62%);animation:d 32s var(--ease) infinite reverse}
-  @keyframes d{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(5vw,4vh,0) scale(1.15)}}
-  .grid-lines{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.14;
-    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-    background-size:64px 64px;animation:gp 40s linear infinite}
-  @keyframes gp{to{background-position:64px 64px,64px 64px}}
-  .noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
-  .wrap{max-width:660px;margin:0 auto;padding:44px 22px;position:relative;z-index:2;width:100%}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.18em;font-size:14px;margin-bottom:34px;animation:f .8s var(--ease) both}
-  .brand .dot{width:11px;height:11px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(255,197,61,.7);animation:p 2.2s infinite}
-  @keyframes p{0%{box-shadow:0 0 0 0 rgba(255,197,61,.6)}70%{box-shadow:0 0 0 16px rgba(255,197,61,0)}100%{box-shadow:0 0 0 0 rgba(255,197,61,0)}}
+  body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.6;
+    min-height:100vh;display:flex;align-items:center;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;
+    background-image:radial-gradient(900px 500px at 70% -10%,rgba(255,197,61,.12),transparent 60%),radial-gradient(700px 500px at 10% 20%,rgba(59,82,180,.14),transparent 60%)}
+  .grain{position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 7s steps(8) infinite}
+  @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-4%,3%)}50%{transform:translate(3%,-3%)}75%{transform:translate(-2%,-2%)}100%{transform:translate(0,0)}}
+  .wrap{max-width:720px;margin:0 auto;padding:48px 22px;position:relative;z-index:2;width:100%}
+  .logo{display:flex;align-items:center;gap:11px;font-family:Anton,sans-serif;letter-spacing:.16em;font-size:15px;margin-bottom:38px;animation:f .8s var(--ease) both}
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 14px var(--gold);animation:beat 2.4s infinite}
+  @keyframes beat{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.82)}}
   @keyframes f{to{opacity:1}}
-  .check{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;margin-bottom:22px;
-    background:radial-gradient(circle at 50% 40%,rgba(46,230,168,.25),transparent 70%);border:1px solid rgba(46,230,168,.4);
-    box-shadow:0 0 40px -6px rgba(46,230,168,.6);animation:pop .7s var(--ease) both}
+  .check{width:82px;height:82px;border-radius:50%;display:grid;place-items:center;margin-bottom:24px;
+    background:radial-gradient(circle at 50% 40%,rgba(22,199,132,.22),transparent 70%);border:1px solid rgba(22,199,132,.4);
+    box-shadow:0 0 46px -6px rgba(22,199,132,.6);animation:pop .7s var(--ease) both}
   @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
-  .check svg{width:40px;height:40px}
-  .check path{fill:none;stroke:var(--green);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;
-    stroke-dasharray:48;stroke-dashoffset:48;animation:draw .8s .5s var(--ease) forwards}
+  .check svg{width:44px;height:44px}
+  .check path{fill:none;stroke:var(--green);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:48;stroke-dashoffset:48;animation:draw .8s .5s var(--ease) forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
-  h1{font-size:clamp(32px,7vw,50px);font-weight:900;letter-spacing:-.025em;line-height:1.06;animation:f .8s .15s var(--ease) both}
-  h1 .g{background:linear-gradient(100deg,var(--gold) 20%,#fff7e0 45%,var(--gold2) 65%,var(--gold) 85%);
-    background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 4s linear infinite}
-  @keyframes sh{to{background-position:-250% 0}}
-  p{margin-top:18px;color:var(--grey);font-size:17px;animation:f .8s .3s var(--ease) both}
-  a.dl{display:flex;align-items:center;gap:14px;margin-top:32px;background:linear-gradient(180deg,#141c38,#0d1428);
-    border:1px solid var(--line);border-radius:18px;padding:22px;text-decoration:none;color:var(--ink);
-    font-weight:800;font-size:17px;position:relative;overflow:hidden;
-    box-shadow:0 24px 60px -30px rgba(0,0,0,.9);animation:f .8s .45s var(--ease) both;transition:transform .2s var(--ease),border-color .25s,box-shadow .3s}
-  a.dl:hover{transform:translateY(-3px);border-color:rgba(255,197,61,.6);box-shadow:0 28px 70px -30px rgba(255,197,61,.5)}
-  a.dl::after{content:"";position:absolute;top:0;left:-130%;width:55%;height:100%;
-    background:linear-gradient(100deg,transparent,rgba(255,197,61,.28),transparent);transform:skewX(-18deg);animation:sweep 3.6s var(--ease) infinite}
-  @keyframes sweep{0%{left:-130%}60%,100%{left:150%}}
-  a.dl .ic{width:48px;height:48px;flex:none;border-radius:13px;background:linear-gradient(120deg,var(--gold),var(--gold2));
-    color:#0b0d16;display:grid;place-items:center;font-weight:900;font-size:22px;position:relative;z-index:1;
-    animation:bob 2.4s var(--ease) infinite}
+  h1{font-family:Anton,sans-serif;font-weight:400;font-size:clamp(38px,10vw,84px);line-height:.94;letter-spacing:-.01em;animation:f .8s .15s var(--ease) both}
+  h1 em{font-family:"Instrument Serif",serif;font-style:italic;color:var(--gold);letter-spacing:-.02em}
+  p{margin-top:20px;color:var(--muted);font-size:17px;max-width:52ch;animation:f .8s .3s var(--ease) both}
+  a.dl{display:flex;align-items:center;gap:16px;margin-top:34px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.01));
+    border:1px solid var(--line);border-radius:18px;padding:24px;text-decoration:none;color:var(--ink);
+    font-weight:700;font-size:17px;position:relative;overflow:hidden;backdrop-filter:blur(10px);
+    box-shadow:0 30px 70px -34px rgba(0,0,0,.95);animation:f .8s .45s var(--ease) both;transition:transform .25s var(--ease),border-color .25s,box-shadow .3s}
+  a.dl:hover{transform:translateY(-4px);border-color:rgba(255,197,61,.55);box-shadow:0 32px 80px -30px rgba(255,197,61,.5)}
+  a.dl::after{content:"";position:absolute;top:0;left:-140%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,197,61,.3),transparent);transform:skewX(-20deg);animation:sweep 3.6s var(--ease) infinite}
+  @keyframes sweep{0%{left:-140%}60%,100%{left:160%}}
+  a.dl .ic{width:50px;height:50px;flex:none;border-radius:13px;background:linear-gradient(115deg,var(--gold),var(--gold2));color:#0B0C0E;
+    display:grid;place-items:center;font-weight:800;font-size:22px;position:relative;z-index:1;animation:bob 2.4s var(--ease) infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
   a.dl span{position:relative;z-index:1}
-  a.dl small{display:block;font-weight:500;color:var(--grey);font-size:13.5px;margin-top:2px}
-  .note{margin-top:26px;font-size:14px;color:#66729a;animation:f .8s .6s var(--ease) both}
-  .conf{position:fixed;width:10px;height:14px;z-index:60;pointer-events:none;border-radius:2px;will-change:transform,opacity}
+  a.dl small{display:block;font-weight:400;color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:12.5px;margin-top:4px;letter-spacing:.04em}
+  .note{margin-top:26px;font-family:"JetBrains Mono",monospace;font-size:12.5px;color:#66729a;animation:f .8s .6s var(--ease) both;letter-spacing:.02em}
+  .conf{position:fixed;width:9px;height:13px;z-index:120;pointer-events:none;border-radius:2px;will-change:transform,opacity}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.check path{stroke-dashoffset:0}}
 </style>
 </head>
 <body>
-<div class="aurora"><span class="a"></span><span class="b"></span></div>
-<div class="grid-lines"></div>
-<div class="noise"></div>
+<div class="grain"></div>
 <div class="wrap">
-  <div class="brand"><span class="dot"></span>THE MARGIN</div>
+  <div class="logo"><span class="dot"></span>THE MARGIN</div>
   <div class="check"><svg viewBox="0 0 48 48"><path d="M10 25 l9 9 l19 -21"/></svg></div>
-  <h1>You're in. <span class="g">Here's your guide.</span></h1>
+  <h1>You're in. <em>Here's your guide.</em></h1>
   <p>Download it below. Over the next few days I'll send you one business breakdown at a time — short, concrete, and the part the press skips.</p>
 
   <a class="dl" href="lead-magnet.pdf" download>
@@ -76,22 +65,22 @@
 </div>
 <script>
 (function(){
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  var cols=['#ffc53d','#ff9f1c','#ff5470','#2ee6a8','#7b6cff','#f6f8ff'];
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var cols=['#FFC53D','#F2A81B','#EA3943','#16C784','#F5F6F7'];
   function burst(x,y,n){
     for(var i=0;i<n;i++){
-      var d=document.createElement('div');d.className='conf';d.style.background=cols[i%cols.length];
-      d.style.left=x+'px';d.style.top=y+'px';document.body.appendChild(d);
-      var ang=Math.random()*Math.PI*2,v=5+Math.random()*11,vx=Math.cos(ang)*v,vy=Math.sin(ang)*v-7,g=.35,life=0,rot=Math.random()*360;
-      (function a(){life++;vx*=.99;vy+=g;rot+=(vx>0?8:-8);
+      var d=document.createElement('div'); d.className='conf'; d.style.background=cols[i%cols.length];
+      d.style.left=x+'px'; d.style.top=y+'px'; document.body.appendChild(d);
+      var ang=Math.random()*Math.PI*2, vel=5+Math.random()*11, vx=Math.cos(ang)*vel, vy=Math.sin(ang)*vel-7, g=.34, life=0, rot=Math.random()*360;
+      (function a(){ life++; vx*=.99; vy+=g; rot+=(vx>0?9:-9);
         d.style.transform='translate('+(vx*life)+'px,'+(vy*life)+'px) rotate('+rot+'deg)';
         d.style.opacity=Math.max(0,1-life/75);
-        if(life<75)requestAnimationFrame(a);else d.remove();})();
+        if(life<75)requestAnimationFrame(a); else d.remove(); })();
     }
   }
-  setTimeout(function(){burst(innerWidth/2,innerHeight*0.3,120)},650);
+  setTimeout(function(){ burst(innerWidth/2, innerHeight*.3, 120); }, 650);
   document.querySelector('a.dl').addEventListener('click',function(e){
-    var r=e.currentTarget.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,70);
+    var r=e.currentTarget.getBoundingClientRect(); burst(r.left+r.width/2, r.top+r.height/2, 70);
   });
 })();
 </script>
