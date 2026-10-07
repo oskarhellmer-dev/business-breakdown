@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're in — The Margin</title>
+<style>
+  :root{--bg:#0a0e18;--card:#141a2c;--line:#243049;--ink:#f4f6fb;--grey:#98a2b8;--gold:#ffc53d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1200px 600px at 50% -10%,#16203a 0%,var(--bg) 55%);color:var(--ink);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.6;
+    min-height:100vh;display:flex;align-items:center;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:640px;margin:0 auto;padding:40px 22px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.14em;font-size:14px;margin-bottom:34px}
+  .brand .dot{width:11px;height:11px;background:var(--gold);border-radius:50%;box-shadow:0 0 18px var(--gold)}
+  h1{font-size:clamp(30px,6.6vw,46px);font-weight:800;letter-spacing:-.02em;line-height:1.08}
+  h1 .g{color:var(--gold)}
+  p{margin-top:18px;color:var(--grey);font-size:17px}
+  a.dl{display:flex;align-items:center;gap:14px;margin-top:32px;background:var(--card);border:1px solid var(--line);
+    border-radius:16px;padding:22px;text-decoration:none;color:var(--ink);font-weight:700;font-size:17px}
+  a.dl:hover{border-color:var(--gold)}
+  a.dl .ic{width:44px;height:44px;flex:none;border-radius:12px;background:var(--gold);color:#10131c;
+    display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+  a.dl small{display:block;font-weight:500;color:var(--grey);font-size:13.5px;margin-top:2px}
+  .note{margin-top:26px;font-size:14px;color:#6f7a92}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><span class="dot"></span>THE MARGIN</div>
+  <h1>You're in. <span class="g">Here's your guide.</span></h1>
+  <p>Download it below. Over the next few days I'll send you one business breakdown at a time — short, concrete, and the part the press skips.</p>
+
+  <a class="dl" href="lead-magnet.pdf" download>
+    <span class="ic">↓</span>
+    <span>The 7 Business Models That Print Money<small>PDF · 10 pages</small></span>
+  </a>
+
+  <p class="note">Didn't get the file? Use the button above. Add this address to your contacts so the emails don't land in spam.</p>
+</div>
+</body>
+</html>
